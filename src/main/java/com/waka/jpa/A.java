@@ -1,5 +1,7 @@
 package com.waka.jpa;
 
+import com.waka.jpa.entity.Users;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletException;
@@ -17,7 +19,11 @@ public class A extends HttpServlet {
     @Override
     public void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA-PU");
-        System.out.println(emf);
+        EntityManager em = emf.createEntityManager();
+
+        Users user = em.find(Users.class, 1);
+        System.out.println(user.getEmail());
+        System.out.println(user.getCreatedAt());
     }
 
 
