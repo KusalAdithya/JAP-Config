@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,11 +30,11 @@ public class Users implements Serializable {
     @Column(name = "created_at")
     private Date createdAt;
 
-
     @OneToOne(mappedBy = "user")
     private Vendors vendor;
 
-
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orders = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -89,5 +91,13 @@ public class Users implements Serializable {
 
     public void setVendor(Vendors vendor) {
         this.vendor = vendor;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

@@ -27,8 +27,13 @@ public class A extends HttpServlet {
 //        System.out.println(user.getCreatedAt());
 
 //        Vendors v = em.find(Vendors.class, 1);
-        System.out.println(user.getVendor().getBusinessName());
+//        System.out.println(user.getOrders());
+
+        user.getOrders().forEach(v ->{
+            System.out.println(v.getStatus());
+});
     }
+
 
 
 }
