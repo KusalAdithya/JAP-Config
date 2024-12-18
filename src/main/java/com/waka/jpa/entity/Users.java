@@ -18,8 +18,10 @@ public class Users implements Serializable {
     @Basic
     private String email, password;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,8 +29,10 @@ public class Users implements Serializable {
     private Date createdAt;
 
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Vendors vendor;
+
+
 
     public int getId() {
         return id;
@@ -77,5 +81,13 @@ public class Users implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Vendors getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendors vendor) {
+        this.vendor = vendor;
     }
 }

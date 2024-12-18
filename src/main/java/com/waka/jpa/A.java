@@ -1,6 +1,7 @@
 package com.waka.jpa;
 
 import com.waka.jpa.entity.Users;
+import com.waka.jpa.entity.Vendors;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -22,8 +23,11 @@ public class A extends HttpServlet {
         EntityManager em = emf.createEntityManager();
 
         Users user = em.find(Users.class, 1);
-        System.out.println(user.getEmail());
-        System.out.println(user.getCreatedAt());
+//        System.out.println(user.getEmail());
+//        System.out.println(user.getCreatedAt());
+
+//        Vendors v = em.find(Vendors.class, 1);
+        System.out.println(user.getVendor().getBusinessName());
     }
 
 
