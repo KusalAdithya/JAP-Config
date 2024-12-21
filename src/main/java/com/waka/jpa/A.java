@@ -2,7 +2,9 @@ package com.waka.jpa;
 
 import com.waka.jpa.entity.Users;
 import com.waka.jpa.entity.Vendors;
+import com.waka.jpa.util.JPAUtil;
 import com.waka.jpa.util.Role;
+import com.waka.jpa.util.Status;
 import jakarta.persistence.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +21,7 @@ public class A extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA-PU");
+        EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
 
 //        Users user = em.find(Users.class, 1);
@@ -86,11 +88,26 @@ public class A extends HttpServlet {
 //        Users user = (Users) query.getSingleResult();
 //        System.out.println(user.getPassword());
 
-        Query query = em.createNamedQuery("Users.findAll");
-        query.getResultList().forEach(user -> {
-            Users u = (Users) user;
-            System.out.println(u.getEmail());
-        });
+//        Query query = em.createNamedQuery("Users.findAll");
+//        query.getResultList().forEach(user -> {
+//            Users u = (Users) user;
+//            System.out.println(u.getEmail());
+//        });
+
+
+        //save data
+        em.getTransaction().begin();
+
+        Users user = new Users();
+        user.setEmail("sasana@gmail.com");
+        user.setPassword("1234");
+        user.setRole(Role.customer);
+        user.setCreatedAt(new java.util.Date());
+        user.setStatus(Status.active);
+
+        em.persist(user);
+       // em.merge(user); // update or save
+        em.getTransaction().commit();
 
     }
 }

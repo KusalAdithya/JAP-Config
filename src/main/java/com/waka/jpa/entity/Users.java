@@ -5,7 +5,6 @@ import com.waka.jpa.util.Status;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,11 +35,28 @@ public class Users implements Serializable {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL) //user table update or delete will update or delete vendor table
     private Vendors vendor;
 
     @OneToMany(mappedBy = "user")
     private List<Orders> orders = new ArrayList<>();
+
+    public Users(String mail, String password) {
+        this.email = mail;
+        this.password = password;
+    }
+
+    public Users(String email, String password, Role role, Status status, Date createdAt) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+
+    public Users() {
+
+    }
 
     public int getId() {
         return id;
